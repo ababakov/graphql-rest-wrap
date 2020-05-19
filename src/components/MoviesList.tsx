@@ -26,7 +26,9 @@ const MoviesList = () => {
       `}
       variables={{}}
       render={({error, props}: {error: any, props: any}) => {
+
         if (error) {
+          console.error(error);
           return <div>Error!</div>;
         }
         if (!props) {

@@ -4,8 +4,13 @@ import {
   RecordSource,
   Store,
 } from 'relay-runtime';
+
   
 import getCookie from '../utils/getCookie';
+import createFetch from '../utils/createFetch';
+import schema from './schema';
+
+import { Network as NetworkType } from 'relay-runtime/lib/network/RelayNetworkTypes';
 
 function fetchQuery(
   operation:any,
@@ -26,8 +31,15 @@ function fetchQuery(
   });
 }
 
+
+function resolveNetwork(rest:Boolean):NetworkType {
+  return Network.create(rest 
+    ? createFetch({ schema })
+    : fetchQuery)
+}
+
 const environment = new Environment({
-  network: Network.create(fetchQuery),
+  network: resolveNetwork(true),
   store: new Store(new RecordSource()),
 });
 
