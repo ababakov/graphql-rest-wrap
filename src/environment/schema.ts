@@ -22,10 +22,6 @@ function fetchMovies() {
   return fetchResponseByURL('/movies');
 }
 
-function fetchMovieByURL(relativeURL:string) {
-  return fetchResponseByURL(relativeURL);
-}
-
 const { nodeInterface, nodeField } = nodeDefinitions(
   globalId => {
     const { type, id } = fromGlobalId(globalId);
@@ -74,12 +70,12 @@ const QueryType = new GraphQLObjectType({
       resolve: fetchMovies,
     },
     node: nodeField,
-    person: {
+    movie: {
       type: MovieType,
       args: {
         id: { type: GraphQLString },
       },
-      resolve: (root, args) => fetchMovieByURL(`/people/${args.id}/`),
+      resolve: (root, args) => fetchResponseByURL(`/movie/${args.id}`),
     },
   }),
 });
