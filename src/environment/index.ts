@@ -5,18 +5,21 @@ import {
   Store,
 } from 'relay-runtime';
   
+import getCookie from '../utils/getCookie';
+
 function fetchQuery(
   operation:any,
   variables:any,
 ) {
-  return fetch('/graphql', {
+  return fetch('/graphql/', {
     method: 'POST',
     headers: {
-    'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken')
     },
     body: JSON.stringify({
-    query: operation.text,
-    variables,
+      query: operation.text,
+      variables,
     }),
   }).then(response => {
     return response.json();

@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { graphql, QueryRenderer } from 'react-relay';
+import { QueryRenderer } from 'react-relay';
+import { graphql } from 'babel-plugin-relay/macro';
+
+import { Loader } from '@gpn-design/uikit/Loader';
 
 import environment from '../environment';
 
@@ -27,9 +30,9 @@ const MoviesList = () => {
           return <div>Error!</div>;
         }
         if (!props) {
-          return <div>Loading...</div>;
+          return <Loader/>;
         }
-        return <div>User ID: {props.viewer.id}</div>;
+        return <div>Result: {JSON.stringify(props)}</div>;
       }}
     />
   );
